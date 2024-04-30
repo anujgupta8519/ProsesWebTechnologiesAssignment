@@ -15,6 +15,8 @@ function ClientLogin() {
   const login =  (data) => {
     ClientLoginService(data)
     .then((res) => {
+      localStorage.setItem("login", true)
+      window.location.reload()
       navigate("/client/dashboard")
       console.log(res)
     })

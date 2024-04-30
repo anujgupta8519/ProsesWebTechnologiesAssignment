@@ -91,12 +91,12 @@ const updateCustomer = asyncHandler(async (req, res) => {
     if (!newClient) {
         throw new ApiError(400, "Client not found");
     }
-    const { name, emailId, mobileNumber, address, country, state, city } = req.body;
-    console.log(name, emailId, mobileNumber, address, country, state, city)
+    const { _id,name, emailId, mobileNumber, address, country, state, city } = req.body;
+    console.log(req.body)
     if ([name, emailId, mobileNumber, address, country, state, city].some(x => !x)) {
         throw new ApiError(400, "All fields are required");
     }
-    const existedUser = await Customer.findOne({ emailId });
+    const existedUser = await Customer.findById(_id);
     if (!existedUser) {
         throw new ApiError(400, "Customer not found");
     }

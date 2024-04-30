@@ -78,13 +78,13 @@ res.status(200).json(new ApiResponse(200, newclient));
 
 const updateClient = asyncHandler(async (req, res) => {
 
-    const { clientName, emailId, mobileNumber, address, subscriptionStartDate, subscriptionEndDate } = req.body;
+    const {_id, clientName, emailId, mobileNumber, address, subscriptionStartDate, subscriptionEndDate } = req.body;
     if ([clientName, emailId, mobileNumber, address, subscriptionStartDate, subscriptionEndDate].some(x => !x)) {
         throw new ApiError(400, "All fields are required");
         
     }
 
-    const existedUser = await Client.findOne({ emailId });
+    const existedUser = await Client.findById(_id);
 
     if (!existedUser) {
         throw new ApiError(400, "Client not found");

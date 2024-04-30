@@ -13,7 +13,17 @@ import adminrouter from "./router/admin.router.js";
 app.use("/api/admin",adminrouter);
 
 import clientrouter from "./router/client.router.js";
+import { ApiResponse } from "./utils/ApiResponse.js";
 app.use("/api/client",clientrouter);
+
+app.post("/api/logout",(req,res)=>{
+
+    res.clearCookie("accessToken")
+    .json(new ApiResponse(200,{},"Logged out successfully"))
+
+  
+
+})
 
 
 export {app};

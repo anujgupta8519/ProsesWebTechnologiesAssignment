@@ -4,9 +4,11 @@ import parseDate from '../../utils/parseDate'
 import { useForm } from 'react-hook-form';
 import Button from '../Button/Button';
 import { deleteClient, updateClient } from '../../services/admin.services';
+import { parseData } from '../../utils/parseError';
 
 function ClientData(data) {
   const id = data?.data._id
+  const [error, setError] = React.useState("");
 
     const {register,handleSubmit,reset} = useForm({
         defaultValues: {
@@ -20,10 +22,11 @@ function ClientData(data) {
     });
 
     const edit = (data) => {
-        updateClient(data).then((res) => {
+        updateClient({_id:id,...data}).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.log(err)
+            setError(parseData(err))
         })
     }
 
@@ -33,6 +36,7 @@ function ClientData(data) {
             console.log(res)
             window.location.reload()
         }).catch((err) => {
+            setError(parseData(err))
             console.log(err)
         })
     }
@@ -44,6 +48,7 @@ function ClientData(data) {
   return (
     
       <div className='flex flex-row'>
+        {error && <p className='text-red-600 mt-8 text-center'>{error}</p>}
 <form className='flex flex-row' onSubmit={handleSubmit(edit)}>
        <Input   {...register("clientName",{required:true})} />
         <Input    {...register("emailId",{required:true})} />

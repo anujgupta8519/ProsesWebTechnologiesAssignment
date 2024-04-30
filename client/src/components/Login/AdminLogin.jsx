@@ -17,6 +17,8 @@ function AdminLogin() {
 
     adminLogin(data)
     .then((res) => {
+      localStorage.setItem("login", true)
+      window.location.reload()
       navigate("/admin/dashboard")
       console.log(res)
     })

@@ -4,10 +4,13 @@ import Select from '../Select/Select';
 import Button from '../Button/Button';
 import { deleteCustomer, updateCustomer } from '../../services/client.services';
 import { useForm } from 'react-hook-form';
+import { parseData } from '../../utils/parseError';
 
 function CustomerData(data) {
 
   const id = data?.data._id
+
+  const [error, setError] = React.useState("");
 
   
   const {register,handleSubmit} = useForm({
@@ -24,9 +27,10 @@ function CustomerData(data) {
 
   const update = (data) => {
     console.log(data)
-    updateCustomer(data).then((res) => {
+    updateCustomer({_id:id,...data}).then((res) => {
       console.log(res)
     }).catch((err) => {
+      setError(parseData(err))
       console.log(err)
     })
   }
@@ -35,6 +39,7 @@ function CustomerData(data) {
       console.log(res)
       window.location.reload()
     }).catch((err) => {
+      setError(parseData(err))
       console.log(err)
     })
   }
@@ -43,6 +48,7 @@ function CustomerData(data) {
 
   return (
     <div className='flex flex-row'>
+      {error && <p className='text-red-600 mt-8 text-center'>{error}</p>}
       <form  className='flex flex-row'>
         <Input
   

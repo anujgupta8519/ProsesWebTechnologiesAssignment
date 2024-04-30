@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import Logo from '../Logo/Logo';
 
@@ -8,13 +8,14 @@ import { addClient } from '../../services/admin.services';
 
 function ClientRegister() {
     const { register, handleSubmit,reset } = useForm();
-
+   
 
 
     const registerClient = async (data) => {
 
         addClient(data).then((res) => {
             reset();
+            window.location.reload()
             
 
             console.log(res)

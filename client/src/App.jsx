@@ -6,6 +6,8 @@ import AdminLogin from './Pages/Login/AdminLogin'
 import ClientLogin from './Pages/Login/ClientLogin'
 import ClientRegister from './Pages/Register/ClientRegister'
 import CustomerRegister from './Pages/Register/CustomerRegister'
+import Protected from './authLayout'
+import UserProtected from './userlayout'
 
 
 function App() {
@@ -15,19 +17,38 @@ function App() {
       path: "/",
       element: <Layout/>,
       children: [
+    
         {
           path: "/",
-          element: <AdminLogin/>
+          element: (
+            <Protected authentication = {false} >
+              <AdminLogin/>
+            </Protected>
+          )
         },
         {
           path:"/user/login",
-          element: <ClientLogin/>
+          element: (
+            <UserProtected authentication = {false} >
+              <ClientLogin/>
+            </UserProtected>
+          )
         },{
           path:"/client/dashboard",
-          element:<CustomerRegister/>
+          element:(
+            <UserProtected authentication = {true} >
+              <CustomerRegister/>
+
+            </UserProtected>
+
+          )
         },{
           path:"/admin/dashboard",
-          element:<ClientRegister/>
+          element:(
+            <Protected authentication = {true} >
+             <ClientRegister/>
+            </Protected>
+          )
         }
 
         
