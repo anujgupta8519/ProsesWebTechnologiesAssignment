@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { adminLogin } from '../../services/admin.services';
+import { parseData } from '../../utils/parseError';
 
 function AdminLogin() {
 
@@ -24,6 +25,7 @@ function AdminLogin() {
     })
     .catch((err) => {
       console.log(err)
+      setError(parseData(err))
     })
    
   };

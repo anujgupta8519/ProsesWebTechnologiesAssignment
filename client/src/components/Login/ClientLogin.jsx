@@ -21,6 +21,7 @@ function ClientLogin() {
       console.log(res)
     })
     .catch((err) => {
+      setError(parseData(err))
       console.log(err)
      
     })
